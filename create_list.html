@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>To do list</title>
+</head>
+
+<body>
+    <h1>To do list:</h1>
+
+    <!-- Add an input box -->
+    <input name="userInput" id="new-text">
+
+    <!-- Create an empty unordered list -->
+    <ul id="item-list"></ul>
+
+    <!-- Add a button to add items -->
+    <button id="add-button" name="btn">Add</button>
+
+    <!-- Add a button to clear the list -->
+    <button id="clear-button">Clear</button>
+
+    <!-- This is the JavaScript code -->
+    <script>
+        let textInput = document.querySelector("#new-text")         // create variable for new text in input box
+        let itemList = document.querySelector("#item-list")         // create variable for item list
+        let addButton = document.querySelector("#add-button")       // create variable for add button
+        let clearButton = document.querySelector("#clear-button")   // create variable for clear button
+
+        let currentNumItems = 0                                     // tracking current items in list
+        let maxItemsInList = 10                                     // set max items to 10
+
+        // add an event listener, if user presses the Enter key on the keyboard
+        // instead of clicking the add button on the screen with the mouse
+        document.addEventListener("keyup", function()
+        {
+            if(event.keyCode == 13)
+            {
+                // click the add button if user presses the enter key
+                addButton.click()
+            }
+        })
+
+        // add an event listener for the mouse click of the add button
+        addButton.addEventListener("click", function()
+        {
+            let newText = textInput.value           // read the text from the input box
+            // console.log(newText)                 // debug statement
+
+            // First validation: check if user entered some text in the input box
+            if(newText.length == 0)
+            {
+                // if user did not enter anything, alert the user
+                alert("Please enter some text.")
+                return                              // stop processing
+            }
+
+            // Second validation: check if current items in the list has exceeded
+            if(currentNumItems >= maxItemsInList)
+            {
+                // if current items has exceeded, alert the user
+                alert("No more items can be added to the list.")
+                return                              // stop processing
+            }
+
+            // Third validation: Input should be of length between 1 and 50
+            if(newText.length > 50)
+            {
+                alert("Text too long. Only 50 characters allowed.")
+                return                              // stop processing
+            }
+
+            // create a new li element for each item added
+            let newListItem = document.createElement("li")
+
+            // the new li element text should be the text from the input box displayed in a bulleted list
+            newListItem.innerHTML = newText
+
+            // add the new li element as a child of the ul element
+            itemList.appendChild(newListItem)
+
+            // clear the text in the input box
+            textInput.value = ""
+
+            // increment the number of items in the list
+            currentNumItems++;
+        })
+
+        // add an event listener for the mouse click of the clear button
+        clearButton.addEventListener("click", function()
+        {
+            // clear the list
+            itemList.innerHTML = ""
+
+            // reset the currentNumItems
+            currentNumItems = 0
+        })
+    </script>
+</body>
+
+</html>
