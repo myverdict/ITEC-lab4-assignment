@@ -76,7 +76,13 @@
 
         // PART 1: When the page loads:
         // 1.1 Using JavaScript, display 0 in span#student-count
-        numOfStudents.innerHTML = 0;
+		numOfStudents.innerHTML = 0;
+
+        // Another way of updating the number of students list
+		// let numberOfStudents = document.querySelectorAll("li").length;
+		// let studentCountElement = document.querySelector("#student-count");
+		// studentCountElement.innerHTML = numberOfStudents;
+        
 
         // PART 2: When button#add-students is clicked:
         // add an event listener to the #add-student button
