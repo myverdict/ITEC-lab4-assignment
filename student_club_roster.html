@@ -1,203 +1,189 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
+  <head>
     <title>Club Membership</title>
     <style>
-        .selected
-        {
-            text-decoration: line-through;
-            font-style: italic;
-            color: gray;
-        }
-        input
-        {
-            width: 100%;
-            padding: 5px;
-            margin: 5px 5px 5px 0px;
-            box-sizing: border-box;
+      .selected {
+        text-decoration: line-through;
+        font-style: italic;
+        color: gray;
+      }
 
-        }
+      input {
+        width: 100%;
+        padding: 5px;
+        margin: 5px 5px 5px 0px;
+        box-sizing: border-box;
+      }
     </style>
-</head>
+  </head>
 
-<body>
-
+  <body>
     <h1>Student Club Roster</h1>
-
     <h2>Add Students</h2>
 
     <label for="student-name">Student Name</label>
-    <input id="student-name" name="student-name">
+    <input id="student-name" name="student-name" />
 
-    <br>
+    <br />
 
     <label for="student-id">Student ID</label>
-    <input id="student-id" name="student-id">
+    <input id="student-id" name="student-id" />
 
-    <br>
+    <br />
 
     <label for="student-gpa">Student GPA</label>
-    <input id="student-gpa" name="student-gpa" type="number">
+    <input id="student-gpa" name="student-gpa" type="number" />
 
-    <br>
+    <br />
 
     <button id="add-student">Add Student</button>
 
     <h2>Student List</h2>
 
     <p>
-        There are
-        <span id="student-count">
-            <!-- use JavaScript to count the number of students, and show here -->
-        </span>
-        student(s) in the club.
+      There are
+      <span id="student-count">
+        <!-- use JavaScript to count the number of students, and show here -->
+      </span>
+      student(s) in the club.
     </p>
 
-
     <ul id="student-list">
-        <!-- use JavaScript to create li elements  -->
+      <!-- use JavaScript to create li elements  -->
     </ul>
 
     <button id="remove-selected-students">Remove selected students</button>
 
     <script>
-        /* Add the following functionality to this page */
-        // find the css id selectors and save them in variables
-        let studentNameInput = document.querySelector("#student-name");
-        let studentIdInput = document.querySelector("#student-id");
-        let studentGPAInput = document.querySelector("#student-gpa");
+      /* Add the following functionality to this page */
+      // find the css id selectors and save them in variables
+      let studentNameInput = document.querySelector("#student-name");
+      let studentIdInput = document.querySelector("#student-id");
+      let studentGPAInput = document.querySelector("#student-gpa");
 
-        let numOfStudents = document.querySelector("#student-count");
-        let studentList = document.querySelector("#student-list");
+      let numOfStudents = document.querySelector("#student-count");
+      let studentList = document.querySelector("#student-list");
 
-        let addStudentButton = document.querySelector("#add-student");
-        let removeStudentButton =document.querySelector("#remove-selected-students");
+      let addStudentButton = document.querySelector("#add-student");
+      let removeStudentButton = document.querySelector(
+        "#remove-selected-students"
+      );
 
-        // PART 1: When the page loads:
-        // 1.1 Using JavaScript, display 0 in span#student-count
-		numOfStudents.innerHTML = 0;
+      // PART 1: When the page loads:
+      // 1.1 Using JavaScript, display 0 in span #student-count
+      numOfStudents.innerHTML = 0;
 
-        // Another way of updating the number of students list
-		// let numberOfStudents = document.querySelectorAll("li").length;
-		// let studentCountElement = document.querySelector("#student-count");
-		// studentCountElement.innerHTML = numberOfStudents;
-        
+      // Another way of updating the number of students list
+      // let numberOfStudents = document.querySelectorAll("li").length;
+      // let studentCountElement = document.querySelector("#student-count");
+      // studentCountElement.innerHTML = numberOfStudents;
 
-        // PART 2: When button#add-students is clicked:
-        // add an event listener to the #add-student button
-        addStudentButton.addEventListener("click", function()
-        {
-            // 2.1 Read the value from the student-name input
-            let name = studentNameInput.value;
-            // 2.2 Read the value from the student-id input
-            let id = studentIdInput.value;
-            // 2.3 Read the value from the student-gpa input
-            let gpa = studentGPAInput.value;
+      // PART 2: When button #add-students is clicked:
+      // add an event listener to the #add-student button
+      addStudentButton.addEventListener("click", function () {
+        // 2.1 Read the value from the #student-name input
+        let name = studentNameInput.value;
+        // 2.2 Read the value from the #student-id input
+        let id = studentIdInput.value;
+        // 2.3 Read the value from the #student-gpa input
+        let gpa = studentGPAInput.value;
 
-            // VALIDATIONS
-            let errors = [];            // Create an empty array
+        // VALIDATIONS
+        let errors = []; // Create an empty array
 
-            // Validation 1: check if name input box is empty
-            if(name.length == 0)
-            {
-                errors.push("Please enter the student's name.");    // if name input box is empty, add error message
-            }
-            // Validation 2: check if id input box is empty
-            if(id.length == 0)
-            {
-                errors.push("Please enter the student's id.")       // if id input box is empty, add error message
-            }
-            // Validation 3: check if gpa input box is empty or gpa is in 0 and 4 range
-            if(gpa.length == 0 || (gpa < 0 || gpa > 4))
-            {
-                // if gpa input box is empty, or gpa is not in range, add error message
-                errors.push("Please enter the student's gpa between 0 & 4.")
-            }
+        // Validation 1: check if name input box is empty
+        if (name.length == 0) {
+          // if name input box is empty, add error message
+          errors.push("Please enter the student's name.");
+        }
+        // Validation 2: check if id input box is empty
+        if (id.length == 0) {
+          // if id input box is empty, add error message
+          errors.push("Please enter the student's id.");
+        }
+        // Validation 3: check if gpa input box is empty or gpa is in 0 and 4 range
+        if (gpa.length == 0 || gpa < 0 || gpa > 4) {
+          // if gpa input box is empty, or gpa is not in range, add error message
+          errors.push("Please enter the student's gpa between 0 & 4.");
+        }
 
-            // if there is are more than 0 errors - there is at least one problem with the validation
-            if(errors.length > 0)
-            {
-                alert(errors.join("\n"))        // display an alert message with errors
-                return;                         // no more processing
-            }
+        // if there are more than 0 errors - there is at least one problem with the validation
+        if (errors.length > 0) {
+          alert(errors.join("\n")); // display an alert message with errors
+          return; // stop processing
+        }
 
-            /*
+        /*
             // Alternate way of writing the above validations
             // Validation 1: check if student entered his/her name
-            if(name.length == 0)
-            {
+            if (name.length == 0) {
                 // if student did not enter a name, alert the student to enter a name
                 alert("Please enter the student's name.");
-                return;         // exit the script
+                return; // exit the script
             }
 
             // Validation 2: check if student entered his/her id
-            if(id.length == 0)
-            {
+            if (id.length == 0) {
                 // if student did not enter an ID, alert the student to enter an ID
                 alert("Please enter the student ID.");
-                return;        // exit the script
+                return; // exit the script
             }
 
             // Validation 3: check if student entered a gpa in the range of 0 to 4
-            if(gpa.length == 0 || (gpa < 0 || gpa > 4))
-            {
+            if (gpa.length == 0 || (gpa < 0 || gpa > 4)) {
                 // if student entered a gpa outside the 0 - 4 range
                 alert("Please enter GPA between 0 and 4.");
-                return;         // exit the script
+                return; // exit the script
             }
             */
 
-            // 2.4 Create a new li element for each student
-            let newStudentItemListElement = document.createElement("li");
+        // 2.4 Create a new li element for each student
+        let newStudentItemListElement = document.createElement("li");
 
-            // 2.5 Set the new li element innerHTML to a string containing the student's name, id, and GPA
-            // 2.5a contd. for example "Beyonce Knowles, id: aa1234bb, GPA: 3.8"
-            // 2.5b contd. Use a template string
-            newStudentItemListElement.innerHTML = `${name}, ID: ${id}, GPA: ${gpa}`;
+        // 2.5 Set the new li element innerHTML to a string containing the student's name, id, and GPA
+        // 2.5a contd. for example "Beyonce Knowles, id: aa1234bb, GPA: 3.8"
+        // 2.5b contd. Use a template string
+        newStudentItemListElement.innerHTML = `${name}, ID: ${id}, GPA: ${gpa}`;
 
-            // 2.6 Add a click event handler to each li element.
-            newStudentItemListElement.addEventListener("click", function()
-            {
-                // 2.6a When an li element is clicked, add the class="selected" to that li element.
-                // 2.6b When an li element is clicked again, remove the class="selected" from that li element.
-                newStudentItemListElement.classList.toggle("selected");
-            })
+        // 2.6 Add a click event handler to each li element.
+        newStudentItemListElement.addEventListener("click", function () {
+          // 2.6a When an li element is clicked, add the class="selected" to that li element.
+          // 2.6b When an li element is clicked again, remove the class="selected" from that li element.
+          newStudentItemListElement.classList.toggle("selected");
+        });
 
-            // 2.7 Add the new li element to ul#student-list element
-            studentList.appendChild(newStudentItemListElement);
+        // 2.7 Add the new li element to ul #student-list element
+        studentList.appendChild(newStudentItemListElement);
 
-            // clear all the text in the input boxes
-            studentNameInput.value = "";
-            studentIdInput.value = "";
-            studentGPAInput.value = "";
+        // clear all the text in the input boxes
+        studentNameInput.value = "";
+        studentIdInput.value = "";
+        studentGPAInput.value = "";
 
-            // 2.8 Update the span#student-count value to the new number of students
-            numOfStudents.innerHTML++;
-        })
+        // 2.8 Update the span #student-count value to the new number of students
+        numOfStudents.innerHTML++;
+      });
 
-        // PART 3: When button#remove-selected-students is clicked:
-        // 3.1 remove all of the elements with the class="selected" from the list.
-        removeStudentButton.addEventListener("click", function()
-        {
-            // find all elements with the class .selected & store in a NodeList variable
-            let removeSelectedStudentElements = document.querySelectorAll(".selected");
+      // PART 3: When button #remove-selected-students is clicked:
+      // 3.1 remove all of the elements with the class="selected" from the list.
+      removeStudentButton.addEventListener("click", function () {
+        // find all elements with the class .selected & store in a NodeList variable
+        let removeSelectedStudentElements =
+          document.querySelectorAll(".selected");
 
-            // remove the selected students
-            removeSelectedStudentElements.forEach(function(element)
-            {
-                element.remove();
+        // remove the selected students
+        removeSelectedStudentElements.forEach(function (element) {
+          element.remove();
 
-                // decrement the numOfStudents
-                numOfStudents.innerHTML--;
-            })
+          // decrement the numOfStudents
+          numOfStudents.innerHTML--;
+        });
 
-            /*
+        /*
             // alternate way of writing the above code
             // if there are more than 0 students
-            while(removeSelectedStudentElements.length > 0)
-            {
+            while (removeSelectedStudentElements.length > 0) {
                 // find the first element with the class .selected
                 let removeElement = document.querySelector(".selected");
 
@@ -208,9 +194,7 @@
                 numOfStudents.innerHTML--;
             }
             */
-        })
+      });
     </script>
-
-</body>
-
+  </body>
 </html>
